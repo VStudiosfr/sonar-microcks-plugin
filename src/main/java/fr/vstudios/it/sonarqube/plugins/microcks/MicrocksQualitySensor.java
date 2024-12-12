@@ -15,15 +15,28 @@ import java.util.List;
 
 @Properties({
         @Property(
-                key = "sonar.microcks.url",
+                key = "microcks.base.url",
                 name = "Microcks URL",
-                description = "Base URL of the Microcks instance",
-                defaultValue = "http://localhost:8081"
+                description = "Base URL of the Microcks instance.",
+                defaultValue = ""
         ),
         @Property(
-                key = "sonar.microcks.token",
+                key = "microcks.idp.url",
+                name = "Microcks IdP URL",
+                description = "URL of the OAuth2 IdentityProvider used to be authenticated with Microcks instance " +
+                        "with Client Credentials Grant.",
+                defaultValue = ""
+        ),
+        @Property(
+                key = "microcks.idp.clientid",
+                name = "Microcks IdP URL",
+                description = "Microcks IdP Client ID.",
+                defaultValue = ""
+        ),
+        @Property(
+                key = "microcks.idp.secret",
                 name = "Microcks Access Token",
-                description = "Authentication token for Microcks API",
+                description = "Authentication token for Microcks API.",
                 type = org.sonar.api.PropertyType.PASSWORD
         )
 })
@@ -38,18 +51,22 @@ public class MicrocksQualitySensor implements Sensor {
 
     @Override
     public void execute(SensorContext context) {
+
         Configuration config = context.config();
-        String microcksBaseUrl = config.get("microcks.base.url").orElse(null);
+        String microcksUrl = config.get("microcks.base.url").orElse(null);
+        String idpUrl = config.get("microcks.idp.url").orElse(null);
+        String clientId = config.get("microcks.idp.clientid").orElse(null);
+        String clientSecret = config.get("microcks.idp.secret").orElse(null);
+        String scope = config.get("microcks.idp.scope").orElse(null);
+
         String artifactName = context.project().key();
 
-        if (microcksBaseUrl == null || artifactName == null) {
-            LOGGER.warn("Microcks base URL or artifact name is not configured.");
-            return;
-        }
-
         try {
-
-            MicrocksApiClient fetcher = new MicrocksApiClient(microcksBaseUrl);
+            MicrocksApiClient fetcher = new MicrocksApiClient(microcksUrl,
+                    idpUrl,
+                    clientId,
+                    clientSecret,
+                    scope);
 
             List<String> servicesList = fetcher.fetchServicesBasedOnProjectName(artifactName);
             String apiQuality = fetcher.fetchApiConformanceIndex(servicesList);
@@ -58,12 +75,13 @@ public class MicrocksQualitySensor implements Sensor {
             LOGGER.info("Mock count for artifact {}: {}", artifactName, servicesCount);
             LOGGER.info("API Quality for artifact {}: {}", artifactName, apiQuality);
 
-            //context.newMeasure().forMetric(MicrocksMetrics.API_CONFORMANCE).withValue(apiQuality).save();
+            //context.newMeasure().forMetric(MicrocksMetrics.API_AVG_CONFORMANCE).withValue(apiQuality).save();
+            //context.newMeasure().forMetric(MicrocksMetrics.API_LOWEST_CONFORMANCE).withValue(apiQuality).save();
             //context.newMeasure().forMetric(MicrocksMetrics.MOCK_COUNT).withValue(servicesCount).save();
+
         } catch (Exception e) {
             LOGGER.error("Error while fetching data from Microcks: ", e);
         }
     }
-
 
 }

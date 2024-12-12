@@ -39,3 +39,4 @@ build/
 /.idea/
 /localdevenvironment/db-microcks/
 /localdevenvironment/db-sonarqube/
+/localdevenvironment/sonarqube_ext_plugins/

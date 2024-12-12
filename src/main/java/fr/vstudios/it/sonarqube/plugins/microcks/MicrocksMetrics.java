@@ -11,7 +11,14 @@ import static java.util.Arrays.asList;
 
 public class MicrocksMetrics implements Metrics {
 
-    public static final Metric<Integer> API_CONFORMANCE = new Metric.Builder("microks_api_conformance", "Microcks API Conformance Index", Metric.ValueType.RATING)
+    public static final Metric<String> API_AVG_CONFORMANCE = new Metric.Builder("microks_api_avg_conformance", "Microcks API Conformance Index", Metric.ValueType.RATING)
+            .setDescription("Microcks API Conformance measurement")
+            .setDirection(Metric.DIRECTION_BETTER)
+            .setQualitative(true)
+            .setDomain(CoreMetrics.DOMAIN_RELEASABILITY)
+            .create();
+
+    public static final Metric<String> API_LOWEST_CONFORMANCE = new Metric.Builder("microks_api_lowest_conformance", "Microcks API Conformance Index", Metric.ValueType.RATING)
             .setDescription("Microcks API Conformance measurement")
             .setDirection(Metric.DIRECTION_BETTER)
             .setQualitative(true)
@@ -27,6 +34,6 @@ public class MicrocksMetrics implements Metrics {
 
     @Override
     public List<Metric> getMetrics() {
-        return asList(API_CONFORMANCE, MOCK_COUNT);
+        return asList(API_AVG_CONFORMANCE, API_LOWEST_CONFORMANCE, MOCK_COUNT);
     }
 }

@@ -1,7 +1,8 @@
 package fr.vstudios.it.sonarqube.plugins.microcks;
 
 import org.sonar.api.Plugin;
-import org.sonar.api.measures.Metric;
+
+import static org.sonar.api.measures.CoreMetrics.getMetrics;
 
 
 public class MicrocksQualityPlugin implements Plugin {
@@ -12,13 +13,6 @@ public class MicrocksQualityPlugin implements Plugin {
         context.addExtension(MicrocksQualitySensor.class);
 
         // Ajouter les métriques personnalisées
-        context.addExtension(
-                new Metric.Builder("microcks_api_quality", "API Quality Score", Metric.ValueType.PERCENT)
-                        .setDescription("Score de qualité global des APIs")
-                        .setDirection(Metric.DIRECTION_BETTER)
-                        .setQualitative(false)
-                        .setDomain("API")
-                        .create()
-        );
+        context.addExtensions(getMetrics());
     }
 }
