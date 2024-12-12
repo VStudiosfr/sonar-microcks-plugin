@@ -93,13 +93,12 @@
                 <extensions>true</extensions>
                 <configuration>
                     <pluginKey>microcks</pluginKey>
-                    <pluginName>Microcks Quality Plugin</pluginName>
+                    <pluginName>Microcks Quality</pluginName>
                     <pluginDescription>
                         If you have a setup in your organisation, a central Microcks instance that gather all the mocks
                         of your different artefacts, this Sonarqube plugin will allow you to control:
-                        - The average API conformance index of the artifact
-                        - The lowest API conformance index of the artifact
-                        - The number of mocks for each artefact
+                        The average and lowest API conformance index of the artifact, the number of mocks for each
+                        artefact.
                         Centralizing thoses informations in Sonarqube will allow you to setup Quality Gates.
                     </pluginDescription>
                     <pluginUrl>https://github.com/VStudiosfr/sonar-microcks-plugin</pluginUrl>

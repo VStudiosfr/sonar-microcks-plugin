@@ -1,4 +1,4 @@
-package fr.vstudios.it.sonarqube.plugins.microcks;
+package fr.vstudios.it.sonarqube.plugins.microcks.analyzers;
 
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.builder.api.DefaultApi20;
@@ -6,14 +6,20 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import okhttp3.*;
 import org.json.JSONObject;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class MicrocksApiClient {
+
+    private static final Logger LOGGER = Loggers.get(MicrocksApiClient.class);
+
 
     private final String microcksUrl;
 
@@ -81,15 +87,14 @@ public class MicrocksApiClient {
             String content = response.body().string();
 
             //TODO n'importe quoi
-            return null;
+            return new ArrayList<String>();
         } catch (IOException e) {
             //TODO pas top
-            e.printStackTrace();
-            return null;
+            LOGGER.error("Error while fetching services based on project name", e);
+            return new ArrayList<String>();
         }
 
     }
-
 
     public String fetchApiConformanceIndex(List<String> servicesList) throws IOException {
         return "A";
@@ -99,6 +104,5 @@ public class MicrocksApiClient {
         final OAuth2AccessToken accessToken = this.oAuth20Service.getAccessTokenClientCredentialsGrant();
         return accessToken.getRawResponse();
     }
-
 
 }

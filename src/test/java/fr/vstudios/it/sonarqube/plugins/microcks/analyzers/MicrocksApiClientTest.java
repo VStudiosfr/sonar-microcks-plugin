@@ -1,4 +1,4 @@
-package fr.vstudios.it.sonarqube.plugins.microcks;
+package fr.vstudios.it.sonarqube.plugins.microcks.analyzers;
 
 import junit.framework.TestCase;
 
