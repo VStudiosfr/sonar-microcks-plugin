@@ -11,7 +11,6 @@ import org.sonar.api.utils.log.Loggers;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class MicrocksQualitySensor implements ProjectSensor {
 
     private static final Logger LOGGER = Loggers.get(MicrocksQualitySensor.class);

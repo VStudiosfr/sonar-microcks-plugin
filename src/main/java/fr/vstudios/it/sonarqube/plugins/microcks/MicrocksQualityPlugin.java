@@ -51,6 +51,6 @@ public class MicrocksQualityPlugin implements Plugin {
     public void define(Context context) {
 
         // Ajouter les métriques personnalisées
-        context.addExtension(MicrocksMetrics.class);
+        context.addExtensions(MicrocksMetrics.class, MicrocksQualitySensor.class);
     }
 }
