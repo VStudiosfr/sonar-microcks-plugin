@@ -7,6 +7,6 @@ TODO
 
 ## Local testing environment
 
-`cd localdevenvironment
-docker compose up -d`
+`cd localdevenvironment`
+`docker compose up -d`
 

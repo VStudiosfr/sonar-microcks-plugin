@@ -1,4 +1,4 @@
-package org.vialle.sonarqube.plugins.microcks;
+package fr.vstudios.it.sonarqube.plugins.microcks;
 
 import com.squareup.okhttp.*;
 import org.json.JSONObject;
@@ -12,6 +12,8 @@ public class MicrocksApiClient {
 
     private final OkHttpClient httpClient = new OkHttpClient();
     private String baseUrl;
+    private String clientId;
+    private String clientSecret;
 
     /**
      * Constructor
@@ -19,7 +21,7 @@ public class MicrocksApiClient {
      * @param url Microcks instance base url
      */
     public MicrocksApiClient(String url) {
-        String baseUrl = url;
+         this.baseUrl = url;
     }
 
     /**
@@ -36,7 +38,6 @@ public class MicrocksApiClient {
         queryMap.put("artefact", project);
         JSONObject jsonQueryMap = new JSONObject(queryMap);
 
-
         //build request
         HttpUrl.Builder urlBuilder = HttpUrl.parse(baseUrl + "/service/search").newBuilder();
         urlBuilder.addQueryParameter("queryMap", jsonQueryMap.toString());
@@ -49,7 +50,6 @@ public class MicrocksApiClient {
 
         response.body().string();
 
-
         return null;
     }
 
@@ -57,4 +57,6 @@ public class MicrocksApiClient {
     public String fetchApiConformanceIndex(List<String> servicesList) throws IOException {
         return "A";
     }
+
+
 }

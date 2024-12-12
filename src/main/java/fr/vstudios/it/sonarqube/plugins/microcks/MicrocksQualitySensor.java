@@ -1,4 +1,4 @@
-package org.vialle.sonarqube.plugins.microcks;
+package fr.vstudios.it.sonarqube.plugins.microcks;
 
 
 import org.sonar.api.Properties;
