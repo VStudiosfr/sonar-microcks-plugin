@@ -1,9 +1,35 @@
-# Sonarqube Plugin for Microcks
+# [DRAFT] Sonarqube Plugin for Microcks
 
-#How to install
-TODO
+# What does it provide ?
 
-#How to develop
+If you have a setup in your organisation, a central Microcks instance that gather all the mocks of your different
+artefacts, this Sonarqube plugin will allow you to control:
+
+- The average API conformance index of the artifact
+- The lowest API conformance index of the artifact
+- The number of mocks for each artefact
+
+Centralizing thoses informations in Sonarqube will allow you to setup Quality Gates
+
+# How to install
+
+Each of your Service deployed on Microcks must have a label that should correspond to the artefact name in Sonarqube:
+`artefact=<sonarqubeArtefactName>`
+
+1. Install your plugin on SonarQube
+2. Configure for each artefact, the credentials to have access to Microcks:
+
+- Microcks URL
+- Microcks Identity Provider (compatible OAuth 2 Client Credentials):
+    - URL
+    - Callback URL
+    - scope
+    - ClientId
+    - ClientSecret
+
+3. Enjoy
+
+# How to develop
 
 ## Local testing environment
 
