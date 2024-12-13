@@ -11,6 +11,10 @@ artefacts, this Sonarqube plugin will allow you to control:
 
 Centralizing thoses informations in Sonarqube will allow you to setup Quality Gates
 
+# Is it a good solution ?
+
+https://discordapp.com/channels/1162356525969449100/1316376708454154351/1317159744645107794
+
 # How to install
 
 Each of your Service deployed on Microcks must have a label that should correspond to the artefact name in Sonarqube:
